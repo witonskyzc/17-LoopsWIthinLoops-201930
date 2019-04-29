@@ -16,7 +16,6 @@ def main():
     """ Calls the other functions to demonstrate them. """
     demonstrate_sequence_of_sequences()
 
-
 def demonstrate_sequence_of_sequences():
     """
     Demonstrates     seqeunce_of_sequence_example

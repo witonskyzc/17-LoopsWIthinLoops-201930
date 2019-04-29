@@ -4,17 +4,15 @@ in the context of TWO-DIMENSIONAL GRAPHICS.
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
-         and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         and Zach Witonsky.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
-
 
 def main():
     """ Calls the other functions to demonstrate them. """
     run_test_draw_L()
     run_test_draw_wall_on_right()
-
 
 def run_test_draw_L():
     """
@@ -54,7 +52,6 @@ def run_test_draw_L():
 
     window.close_on_mouse_click()
 
-
 def draw_L(window, circle, r, c):
     """
     See   L.pdf   in this project for pictures that may
@@ -81,10 +78,46 @@ def draw_L(window, circle, r, c):
     and m and n are small, positive integers.
     """
     # -------------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #     The testing code is already written for you (above).
     # -------------------------------------------------------------------------
 
+    print(r, c)
+
+    original_x = circle.center.x
+    original_y = circle.center.y
+    radius = circle.radius
+
+    x = original_x
+    y = original_y
+
+    # Part 1: Tall side
+    for k in range(r):
+        for j in range(3):
+            new_circle = rg.Circle(rg.Point(x, y), radius)
+            new_circle.fill_color = circle.fill_color
+
+            new_circle.attach_to(window)
+            window.render(0.1)
+
+            x = x + (2 * radius)  # Move x to the right, for next circle
+
+        y = y + 2 * radius  # Move y down, for the next row of circles
+        x = original_x  # Reset x to the left-edge, for the next row
+
+    # Part 2: Long side
+    for k in range(3):
+        for j in range(c + 3):
+            new_circle = rg.Circle(rg.Point(x, y), radius)
+            new_circle.fill_color = circle.fill_color
+
+            new_circle.attach_to(window)
+            window.render(0.1)
+
+            x = x + (2 * radius)  # Move x to the right, for next circle
+
+        y = y + 2 * radius  # Move y down, for the next row of circles
+        x = original_x  # Reset x to the left-edge, for the next row
 
 def run_test_draw_wall_on_right():
     """ Tests the    draw_wall_on_right    function. """
@@ -101,7 +134,6 @@ def run_test_draw_wall_on_right():
     draw_wall_on_right(rectangle2, 4, window)
 
     window.close_on_mouse_click()
-
 
 def draw_wall_on_right(rectangle, n, window):
     """
@@ -122,10 +154,39 @@ def draw_wall_on_right(rectangle, n, window):
     and n is a small, positive integer.
     """
     # -------------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #     The testing code is already written for you (above).
     # -------------------------------------------------------------------------
 
+    new_rectangle = rectangle
+    new_rectangle.attach_to(window.initial_canvas)
+    window.render(0.1)
+
+    c1 = rectangle.corner_1
+    c1_x = c1.x
+    c1_y = c1.y
+
+    c2 = rectangle.corner_2
+    c2_x = c2.x
+    c2_y = c2.y
+
+    width = rectangle.get_width()
+    height = rectangle.get_height()
+
+    for j in range(n):
+        for _ in range(j + 1):
+            new_rectangle = rg.Rectangle(rg.Point(c1_x, c1_y),rg.Point(c2_x,c2_y))
+            new_rectangle.attach_to(window.initial_canvas)
+            window.render(0.1)
+
+            c1_x = c1_x - width
+            c2_x = c2_x - width
+
+        c1_y = c1_y + height
+        c1_x = c1.x
+
+        c2_y = c2_y + height
+        c2_x = c2.x
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.

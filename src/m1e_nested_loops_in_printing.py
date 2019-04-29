@@ -42,7 +42,6 @@ def classic_example_1(n, m):
             print(i + 1, j + 1, '=', (i + 1) * (j + 1))
         print()
 
-
 def classic_example_2(n):
     """
     Prints PART of a multiplication table.
